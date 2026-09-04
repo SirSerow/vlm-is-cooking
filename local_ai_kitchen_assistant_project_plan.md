@@ -1,5 +1,9 @@
 # Local AI Kitchen Assistant — Project Plan
 
+Implementation review: see [docs/plan-review.md](docs/plan-review.md) for required
+corrections and validation gates. Remote annotation setup is documented in
+[environments/sam3/README.md](environments/sam3/README.md).
+
 ## 1. Goal
 
 Build a local overhead-camera kitchen assistant that can:
@@ -889,12 +893,12 @@ yolo:
     - wok
     - lid
     - knife
-    - spatula
-    - spoon
-    - tongs
     - cutting_board
     - bowl
     - plate
+    - spatula
+    - spoon
+    - tongs
     - cup
     - bottle
     - jar

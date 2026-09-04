@@ -1,0 +1,20 @@
+{
+  "version": "kitchen-v1",
+  "classes": [
+    {"id": 0, "name": "pan", "prompt": "frying pan"},
+    {"id": 1, "name": "pot", "prompt": "cooking pot"},
+    {"id": 2, "name": "wok", "prompt": "wok"},
+    {"id": 3, "name": "lid", "prompt": "pot lid"},
+    {"id": 4, "name": "knife", "prompt": "kitchen knife"},
+    {"id": 5, "name": "cutting_board", "prompt": "cutting board"},
+    {"id": 6, "name": "bowl", "prompt": "bowl"},
+    {"id": 7, "name": "plate", "prompt": "plate"},
+    {"id": 8, "name": "spatula", "prompt": "spatula"},
+    {"id": 9, "name": "spoon", "prompt": "spoon"},
+    {"id": 10, "name": "tongs", "prompt": "kitchen tongs"},
+    {"id": 11, "name": "cup", "prompt": "cup"},
+    {"id": 12, "name": "bottle", "prompt": "bottle"},
+    {"id": 13, "name": "jar", "prompt": "jar"},
+    {"id": 14, "name": "sponge", "prompt": "kitchen sponge"}
+  ]
+}

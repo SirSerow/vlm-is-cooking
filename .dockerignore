@@ -1,0 +1,8 @@
+*
+!environments/
+!environments/sam3/
+!environments/sam3/**
+!config/
+!config/**
+!scripts/
+!scripts/**

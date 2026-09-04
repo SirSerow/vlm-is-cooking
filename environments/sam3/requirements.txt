@@ -1,0 +1,11 @@
+# Core GPU stack and SAM source are installed separately by bootstrap.sh.
+# SAM imports pkg_resources, which newer setuptools releases remove.
+setuptools==80.9.0
+numpy==1.26.4
+einops==0.8.1
+scipy==1.15.3
+psutil==7.0.0
+pillow==11.3.0
+opencv-python-headless==4.11.0.86
+decord==0.6.0
+pycocotools==2.0.10
