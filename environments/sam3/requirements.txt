@@ -7,5 +7,5 @@ scipy==1.15.3
 psutil==7.0.0
 pillow==11.3.0
 opencv-python-headless==4.11.0.86
-decord==0.6.0
+# Decode source videos with FFmpeg; decord's old wheel fails platform checks.
 pycocotools==2.0.10

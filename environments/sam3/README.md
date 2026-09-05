@@ -106,5 +106,15 @@ policy consistently before annotation; do not silently infer hidden object exten
 ## Validation status
 
 Local checks cover Python syntax, argument validation, shell syntax, and dictionary
-agreement. Linux dependency installation, checkpoint loading, and GPU inference
-must pass on the pod before calling this environment validated.
+agreement. Linux installation and SAM3 imports passed on the supplied RTX PRO 6000
+Blackwell pod on 2026-09-05. Removed optional Decord after its wheel failed pip's
+platform check; FFmpeg remains the decoder for this sampled-frame workflow.
+Direct MP4 input to the upstream video predictor is not validated by this setup.
+Checkpoint loading and real-image inference subsequently passed on the same pod:
+the bowl smoke test returned one visually matching candidate (score 0.961), and
+the knife prompt returned no candidates on a frame without a visible knife.
+The checkpoint SHA-256 is
+`9999e2341ceef5e136daa386eecb55cb414446a00ac2b55eb2dfd2f7c3cf8c9e`.
+These runtime checks do not establish dataset accuracy.
+
+Batch annotation and output conventions: [annotation-output.md](../../docs/annotation-output.md).

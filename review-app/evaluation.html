@@ -1,0 +1,246 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>YOLO visual audit · Kitchen Lab</title><style>body{background:#101416;color:#e7efec;font:15px/1.6 Segoe UI,sans-serif;max-width:1100px;margin:32px auto;padding:0 20px}a{color:#c4f580}h1{font-weight:500}table{border-collapse:collapse;width:100%;margin:18px 0}td,th{text-align:left;padding:9px;border-bottom:1px solid #354044}.notice{padding:16px;background:#30291d;color:#e4ca93;border-radius:8px}small{color:#a0b2b8}details{background:#191f22;margin:10px 0;padding:12px;border-radius:8px}summary{cursor:pointer}img{width:160px;border-radius:5px}pre{white-space:pre-wrap;font:13px/1.65 Segoe UI,sans-serif}</style><body>
+<a href="/">← Kitchen Lab</a><h1>YOLO visual audit</h1><p>143 crops inspected · 142 scored · 15 videos · confidence 0.25</p>
+<p class="notice">Experimental same-session evaluation by the assistant. Object presence only — not box accuracy or independently verified ground truth.</p>
+<h2>79.2% presence recall · 100/142 complete class sets</h2>
+<p>49 missed class occurrences. 18 extra same-class boxes across 17 frames. Strongest gaps: knives, cutting boards and utensils.</p>
+<table><tr><th>Class</th><th>Visible</th><th>Detected</th><th>Missed</th><th>Recall</th></tr>
+<tr><td>pan</td><td>84</td><td>75</td><td>9</td><td>89.3%</td></tr>
+<tr><td>lid</td><td>19</td><td>19</td><td>0</td><td>100.0%</td></tr>
+<tr><td>knife</td><td>32</td><td>20</td><td>12</td><td>62.5%</td></tr>
+<tr><td>cutting_board</td><td>20</td><td>10</td><td>10</td><td>50.0%</td></tr>
+<tr><td>bowl</td><td>7</td><td>6</td><td>1</td><td>85.7%</td></tr>
+<tr><td>plate</td><td>49</td><td>45</td><td>4</td><td>91.8%</td></tr>
+<tr><td>spatula</td><td>22</td><td>12</td><td>10</td><td>54.5%</td></tr>
+<tr><td>spoon</td><td>1</td><td>0</td><td>1</td><td>0.0%</td></tr>
+<tr><td>tongs</td><td>2</td><td>0</td><td>2</td><td>0.0%</td></tr>
+</table><h2>Inspect every judgment</h2><p>Open a frame to compare its predictions. “Extra” counts additional same-class boxes; localization is not scored.</p>
+<details><summary>001_empty-pan.mp4 · 10/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=1"><img loading="lazy" src="/thumb?id=1" alt="Frame 1"><br>Frame 1 · 1.0s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=5"><img loading="lazy" src="/thumb?id=5" alt="Frame 5"><br>Frame 5 · 5.0s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=10"><img loading="lazy" src="/thumb?id=10" alt="Frame 10"><br>Frame 10 · 10.0s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=13"><img loading="lazy" src="/thumb?id=13" alt="Frame 13"><br>Frame 13 · 13.0s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=17"><img loading="lazy" src="/thumb?id=17" alt="Frame 17"><br>Frame 17 · 17.0s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=22"><img loading="lazy" src="/thumb?id=22" alt="Frame 22"><br>Frame 22 · 22.0s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=26"><img loading="lazy" src="/thumb?id=26" alt="Frame 26"><br>Frame 26 · 26.0s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=29"><img loading="lazy" src="/thumb?id=29" alt="Frame 29"><br>Frame 29 · 29.0s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=33"><img loading="lazy" src="/thumb?id=33" alt="Frame 33"><br>Frame 33 · 33.0s</a></td><td>none</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=38"><img loading="lazy" src="/thumb?id=38" alt="Frame 38"><br>Frame 38 · 38.1s</a></td><td>none</td><td>none</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>002_cutting-mushrooms.mp4 · 4/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=43"><img loading="lazy" src="/thumb?id=43" alt="Frame 43"><br>Frame 43 · 3.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=49"><img loading="lazy" src="/thumb?id=49" alt="Frame 49"><br>Frame 49 · 9.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=57"><img loading="lazy" src="/thumb?id=57" alt="Frame 57"><br>Frame 57 · 17.0s</a></td><td>knife, plate</td><td>plate</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=64"><img loading="lazy" src="/thumb?id=64" alt="Frame 64"><br>Frame 64 · 24.0s</a></td><td>knife, plate</td><td>plate</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=70"><img loading="lazy" src="/thumb?id=70" alt="Frame 70"><br>Frame 70 · 30.0s</a></td><td>knife, plate</td><td>knife</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=78"><img loading="lazy" src="/thumb?id=78" alt="Frame 78"><br>Frame 78 · 38.1s</a></td><td>knife, plate</td><td>knife</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=84"><img loading="lazy" src="/thumb?id=84" alt="Frame 84"><br>Frame 84 · 44.1s</a></td><td>knife, plate</td><td>knife</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=91"><img loading="lazy" src="/thumb?id=91" alt="Frame 91"><br>Frame 91 · 51.1s</a></td><td>knife, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=99"><img loading="lazy" src="/thumb?id=99" alt="Frame 99"><br>Frame 99 · 59.1s</a></td><td>knife, plate</td><td>plate</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=105"><img loading="lazy" src="/thumb?id=105" alt="Frame 105"><br>Frame 105 · 65.1s</a></td><td>knife, plate</td><td>none</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>003_washing-small-plate.mp4 · 8/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=109"><img loading="lazy" src="/thumb?id=109" alt="Frame 109"><br>Frame 109 · 0.0s</a></td><td>knife, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=111"><img loading="lazy" src="/thumb?id=111" alt="Frame 111"><br>Frame 111 · 2.0s</a></td><td>knife, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=114"><img loading="lazy" src="/thumb?id=114" alt="Frame 114"><br>Frame 114 · 5.0s</a></td><td>knife, plate</td><td>knife</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=116"><img loading="lazy" src="/thumb?id=116" alt="Frame 116"><br>Frame 116 · 7.0s</a></td><td>knife, plate</td><td>knife</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=118"><img loading="lazy" src="/thumb?id=118" alt="Frame 118"><br>Frame 118 · 9.0s</a></td><td>knife, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=120"><img loading="lazy" src="/thumb?id=120" alt="Frame 120"><br>Frame 120 · 11.0s</a></td><td>knife, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=122"><img loading="lazy" src="/thumb?id=122" alt="Frame 122"><br>Frame 122 · 13.0s</a></td><td>knife, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=124"><img loading="lazy" src="/thumb?id=124" alt="Frame 124"><br>Frame 124 · 15.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=127"><img loading="lazy" src="/thumb?id=127" alt="Frame 127"><br>Frame 127 · 18.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=129"><img loading="lazy" src="/thumb?id=129" alt="Frame 129"><br>Frame 129 · 20.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>004_cutting-onion.mp4 · 3/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=131"><img loading="lazy" src="/thumb?id=131" alt="Frame 131"><br>Frame 131 · 1.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=135"><img loading="lazy" src="/thumb?id=135" alt="Frame 135"><br>Frame 135 · 5.0s</a></td><td>cutting_board, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=140"><img loading="lazy" src="/thumb?id=140" alt="Frame 140"><br>Frame 140 · 10.0s</a></td><td>cutting_board, bowl, plate</td><td>cutting_board</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=143"><img loading="lazy" src="/thumb?id=143" alt="Frame 143"><br>Frame 143 · 13.0s</a></td><td>knife, cutting_board, bowl, plate</td><td>knife, cutting_board</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=147"><img loading="lazy" src="/thumb?id=147" alt="Frame 147"><br>Frame 147 · 17.0s</a></td><td>knife, cutting_board, bowl, plate</td><td>knife, cutting_board</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=152"><img loading="lazy" src="/thumb?id=152" alt="Frame 152"><br>Frame 152 · 22.0s</a></td><td>knife, cutting_board, bowl, plate</td><td>knife, cutting_board</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=156"><img loading="lazy" src="/thumb?id=156" alt="Frame 156"><br>Frame 156 · 26.0s</a></td><td>cutting_board, bowl, plate</td><td>cutting_board</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=159"><img loading="lazy" src="/thumb?id=159" alt="Frame 159"><br>Frame 159 · 29.0s</a></td><td>knife, cutting_board, bowl, plate</td><td>knife, cutting_board</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=163"><img loading="lazy" src="/thumb?id=163" alt="Frame 163"><br>Frame 163 · 33.0s</a></td><td>knife, cutting_board, bowl, plate</td><td>cutting_board, bowl</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=168"><img loading="lazy" src="/thumb?id=168" alt="Frame 168"><br>Frame 168 · 38.1s</a></td><td>knife, cutting_board, plate</td><td>none</td><td>none / 1 extra</td></tr>
+</table></details>
+<details><summary>005_cutting-chicken.mp4 · 5/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=177"><img loading="lazy" src="/thumb?id=177" alt="Frame 177"><br>Frame 177 · 7.0s</a></td><td>knife, cutting_board, plate</td><td>none</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=193"><img loading="lazy" src="/thumb?id=193" alt="Frame 193"><br>Frame 193 · 23.0s</a></td><td>knife, cutting_board, plate</td><td>knife</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=210"><img loading="lazy" src="/thumb?id=210" alt="Frame 210"><br>Frame 210 · 40.1s</a></td><td>knife, cutting_board, plate</td><td>cutting_board</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=225"><img loading="lazy" src="/thumb?id=225" alt="Frame 225"><br>Frame 225 · 55.1s</a></td><td>knife, cutting_board, plate</td><td>cutting_board</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=241"><img loading="lazy" src="/thumb?id=241" alt="Frame 241"><br>Frame 241 · 71.1s</a></td><td>knife, cutting_board, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=258"><img loading="lazy" src="/thumb?id=258" alt="Frame 258"><br>Frame 258 · 88.1s</a></td><td>knife, cutting_board, plate</td><td>cutting_board</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=274"><img loading="lazy" src="/thumb?id=274" alt="Frame 274"><br>Frame 274 · 104.2s</a></td><td>knife, cutting_board, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=289"><img loading="lazy" src="/thumb?id=289" alt="Frame 289"><br>Frame 289 · 119.2s</a></td><td>knife, cutting_board, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=305"><img loading="lazy" src="/thumb?id=305" alt="Frame 305"><br>Frame 305 · 135.2s</a></td><td>knife, cutting_board, plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=322"><img loading="lazy" src="/thumb?id=322" alt="Frame 322"><br>Frame 322 · 152.2s</a></td><td>knife, cutting_board, plate</td><td>knife</td><td>none / 1 extra</td></tr>
+</table></details>
+<details><summary>006_heating-oil.mp4 · 8/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=335"><img loading="lazy" src="/thumb?id=335" alt="Frame 335"><br>Frame 335 · 5.0s</a></td><td>knife, cutting_board, plate</td><td>knife</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=347"><img loading="lazy" src="/thumb?id=347" alt="Frame 347"><br>Frame 347 · 17.0s</a></td><td>none</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=357"><img loading="lazy" src="/thumb?id=357" alt="Frame 357"><br>Frame 357 · 27.0s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=368"><img loading="lazy" src="/thumb?id=368" alt="Frame 368"><br>Frame 368 · 38.1s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=379"><img loading="lazy" src="/thumb?id=379" alt="Frame 379"><br>Frame 379 · 49.1s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=390"><img loading="lazy" src="/thumb?id=390" alt="Frame 390"><br>Frame 390 · 60.1s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=401"><img loading="lazy" src="/thumb?id=401" alt="Frame 401"><br>Frame 401 · 71.1s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=412"><img loading="lazy" src="/thumb?id=412" alt="Frame 412"><br>Frame 412 · 82.1s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=422"><img loading="lazy" src="/thumb?id=422" alt="Frame 422"><br>Frame 422 · 92.1s</a></td><td>pan</td><td>pan</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=434"><img loading="lazy" src="/thumb?id=434" alt="Frame 434"><br>Frame 434 · 104.2s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>007_roasting-mushrooms.mp4 · 8/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=460"><img loading="lazy" src="/thumb?id=460" alt="Frame 460"><br>Frame 460 · 20.0s</a></td><td>pan, plate</td><td>plate</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=502"><img loading="lazy" src="/thumb?id=502" alt="Frame 502"><br>Frame 502 · 62.1s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=543"><img loading="lazy" src="/thumb?id=543" alt="Frame 543"><br>Frame 543 · 103.2s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=583"><img loading="lazy" src="/thumb?id=583" alt="Frame 583"><br>Frame 583 · 143.2s</a></td><td>pan, spatula</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=624"><img loading="lazy" src="/thumb?id=624" alt="Frame 624"><br>Frame 624 · 184.3s</a></td><td>pan</td><td>none</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=666"><img loading="lazy" src="/thumb?id=666" alt="Frame 666"><br>Frame 666 · 226.3s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=707"><img loading="lazy" src="/thumb?id=707" alt="Frame 707"><br>Frame 707 · 267.4s</a></td><td>pan, spatula</td><td>spatula</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=748"><img loading="lazy" src="/thumb?id=748" alt="Frame 748"><br>Frame 748 · 308.5s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=788"><img loading="lazy" src="/thumb?id=788" alt="Frame 788"><br>Frame 788 · 348.5s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=830"><img loading="lazy" src="/thumb?id=830" alt="Frame 830"><br>Frame 830 · 390.6s</a></td><td>pan, spatula</td><td>none</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>008_adding-cut-onion.mp4 · 9/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=866"><img loading="lazy" src="/thumb?id=866" alt="Frame 866"><br>Frame 866 · 15.0s</a></td><td>pan, spatula</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=897"><img loading="lazy" src="/thumb?id=897" alt="Frame 897"><br>Frame 897 · 46.1s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=930"><img loading="lazy" src="/thumb?id=930" alt="Frame 930"><br>Frame 930 · 79.1s</a></td><td>pan, spatula</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=961"><img loading="lazy" src="/thumb?id=961" alt="Frame 961"><br>Frame 961 · 110.2s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=992"><img loading="lazy" src="/thumb?id=992" alt="Frame 992"><br>Frame 992 · 141.2s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1024"><img loading="lazy" src="/thumb?id=1024" alt="Frame 1024"><br>Frame 1024 · 173.3s</a></td><td>pan</td><td>none</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=1055"><img loading="lazy" src="/thumb?id=1055" alt="Frame 1055"><br>Frame 1055 · 204.3s</a></td><td>pan, spatula</td><td>none</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=1087"><img loading="lazy" src="/thumb?id=1087" alt="Frame 1087"><br>Frame 1087 · 236.4s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1119"><img loading="lazy" src="/thumb?id=1119" alt="Frame 1119"><br>Frame 1119 · 268.4s</a></td><td>pan, spatula</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1150"><img loading="lazy" src="/thumb?id=1150" alt="Frame 1150"><br>Frame 1150 · 299.4s</a></td><td>pan, spatula</td><td>pan, spatula</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>009_adding-chicken.mp4 · 5/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=1185"><img loading="lazy" src="/thumb?id=1185" alt="Frame 1185"><br>Frame 1185 · 19.0s</a></td><td>pan, spatula</td><td>spatula</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1225"><img loading="lazy" src="/thumb?id=1225" alt="Frame 1225"><br>Frame 1225 · 59.1s</a></td><td>pan, spatula</td><td>pan</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=1264"><img loading="lazy" src="/thumb?id=1264" alt="Frame 1264"><br>Frame 1264 · 98.1s</a></td><td>pan</td><td>pan</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1303"><img loading="lazy" src="/thumb?id=1303" alt="Frame 1303"><br>Frame 1303 · 137.2s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1342"><img loading="lazy" src="/thumb?id=1342" alt="Frame 1342"><br>Frame 1342 · 176.3s</a></td><td>pan</td><td>none</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=1381"><img loading="lazy" src="/thumb?id=1381" alt="Frame 1381"><br>Frame 1381 · 215.3s</a></td><td>pan, tongs</td><td>tongs</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=1420"><img loading="lazy" src="/thumb?id=1420" alt="Frame 1420"><br>Frame 1420 · 254.4s</a></td><td>pan, tongs</td><td>tongs</td><td>spatula / 0 extra</td></tr>
+<tr><td><a href="/?frame=1459"><img loading="lazy" src="/thumb?id=1459" alt="Frame 1459"><br>Frame 1459 · 293.4s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1498"><img loading="lazy" src="/thumb?id=1498" alt="Frame 1498"><br>Frame 1498 · 332.5s</a></td><td>pan, spatula</td><td>none</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=1538"><img loading="lazy" src="/thumb?id=1538" alt="Frame 1538"><br>Frame 1538 · 372.6s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>010_adding-cream.mp4 · 5/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=1569"><img loading="lazy" src="/thumb?id=1569" alt="Frame 1569"><br>Frame 1569 · 11.0s</a></td><td>pan, spatula</td><td>spatula</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1592"><img loading="lazy" src="/thumb?id=1592" alt="Frame 1592"><br>Frame 1592 · 34.1s</a></td><td>pan, spatula</td><td>spatula</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=1614"><img loading="lazy" src="/thumb?id=1614" alt="Frame 1614"><br>Frame 1614 · 56.1s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1637"><img loading="lazy" src="/thumb?id=1637" alt="Frame 1637"><br>Frame 1637 · 79.1s</a></td><td>pan, spatula</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1659"><img loading="lazy" src="/thumb?id=1659" alt="Frame 1659"><br>Frame 1659 · 101.2s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1682"><img loading="lazy" src="/thumb?id=1682" alt="Frame 1682"><br>Frame 1682 · 124.2s</a></td><td>pan, spatula</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1704"><img loading="lazy" src="/thumb?id=1704" alt="Frame 1704"><br>Frame 1704 · 146.2s</a></td><td>pan, spatula</td><td>spatula</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1727"><img loading="lazy" src="/thumb?id=1727" alt="Frame 1727"><br>Frame 1727 · 169.3s</a></td><td>pan, spatula</td><td>spatula</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1749"><img loading="lazy" src="/thumb?id=1749" alt="Frame 1749"><br>Frame 1749 · 191.3s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1772"><img loading="lazy" src="/thumb?id=1772" alt="Frame 1772"><br>Frame 1772 · 214.3s</a></td><td>pan, spatula</td><td>spatula</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>011_closing-lid.mp4 · 10/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=1790"><img loading="lazy" src="/thumb?id=1790" alt="Frame 1790"><br>Frame 1790 · 6.0s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1803"><img loading="lazy" src="/thumb?id=1803" alt="Frame 1803"><br>Frame 1803 · 19.0s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1817"><img loading="lazy" src="/thumb?id=1817" alt="Frame 1817"><br>Frame 1817 · 33.0s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1830"><img loading="lazy" src="/thumb?id=1830" alt="Frame 1830"><br>Frame 1830 · 46.1s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1843"><img loading="lazy" src="/thumb?id=1843" alt="Frame 1843"><br>Frame 1843 · 59.1s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1858"><img loading="lazy" src="/thumb?id=1858" alt="Frame 1858"><br>Frame 1858 · 74.1s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1871"><img loading="lazy" src="/thumb?id=1871" alt="Frame 1871"><br>Frame 1871 · 87.1s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1884"><img loading="lazy" src="/thumb?id=1884" alt="Frame 1884"><br>Frame 1884 · 100.2s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1898"><img loading="lazy" src="/thumb?id=1898" alt="Frame 1898"><br>Frame 1898 · 114.2s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1911"><img loading="lazy" src="/thumb?id=1911" alt="Frame 1911"><br>Frame 1911 · 127.2s</a></td><td>pan, lid</td><td>none</td><td>none / 2 extra</td></tr>
+</table></details>
+<details><summary>012_opening-lid.mp4 · 4/10 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=1928"><img loading="lazy" src="/thumb?id=1928" alt="Frame 1928"><br>Frame 1928 · 10.0s</a></td><td>pan, spatula</td><td>spatula</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1950"><img loading="lazy" src="/thumb?id=1950" alt="Frame 1950"><br>Frame 1950 · 32.0s</a></td><td>pan, spatula</td><td>spatula</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1973"><img loading="lazy" src="/thumb?id=1973" alt="Frame 1973"><br>Frame 1973 · 55.1s</a></td><td>pan, spoon</td><td>pan, spoon</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=1994"><img loading="lazy" src="/thumb?id=1994" alt="Frame 1994"><br>Frame 1994 · 76.1s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2016"><img loading="lazy" src="/thumb?id=2016" alt="Frame 2016"><br>Frame 2016 · 98.1s</a></td><td>pan</td><td>pan</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2039"><img loading="lazy" src="/thumb?id=2039" alt="Frame 2039"><br>Frame 2039 · 121.2s</a></td><td>pan</td><td>pan</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2061"><img loading="lazy" src="/thumb?id=2061" alt="Frame 2061"><br>Frame 2061 · 143.2s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2082"><img loading="lazy" src="/thumb?id=2082" alt="Frame 2082"><br>Frame 2082 · 164.2s</a></td><td>pan</td><td>pan</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2104"><img loading="lazy" src="/thumb?id=2104" alt="Frame 2104"><br>Frame 2104 · 186.3s</a></td><td>pan, spatula</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2127"><img loading="lazy" src="/thumb?id=2127" alt="Frame 2127"><br>Frame 2127 · 209.3s</a></td><td>pan, spatula</td><td>none</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>013_closing-lid.mp4 · 8/9 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=2139"><img loading="lazy" src="/thumb?id=2139" alt="Frame 2139"><br>Frame 2139 · 1.0s</a></td><td>pan, lid</td><td>pan</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=2143"><img loading="lazy" src="/thumb?id=2143" alt="Frame 2143"><br>Frame 2143 · 5.0s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2145"><img loading="lazy" src="/thumb?id=2145" alt="Frame 2145"><br>Frame 2145 · 7.0s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2148"><img loading="lazy" src="/thumb?id=2148" alt="Frame 2148"><br>Frame 2148 · 10.0s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2151"><img loading="lazy" src="/thumb?id=2151" alt="Frame 2151"><br>Frame 2151 · 13.0s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2154"><img loading="lazy" src="/thumb?id=2154" alt="Frame 2154"><br>Frame 2154 · 16.0s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2157"><img loading="lazy" src="/thumb?id=2157" alt="Frame 2157"><br>Frame 2157 · 19.0s</a></td><td>pan, lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2160"><img loading="lazy" src="/thumb?id=2160" alt="Frame 2160"><br>Frame 2160 · 22.0s</a></td><td>lid</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2162"><img loading="lazy" src="/thumb?id=2162" alt="Frame 2162"><br>Frame 2162 · 24.0s</a></td><td>lid</td><td>none</td><td>none / 1 extra</td></tr>
+</table></details>
+<details><summary>014_empty-cooking-panel.mp4 · 5/5 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=2168"><img loading="lazy" src="/thumb?id=2168" alt="Frame 2168"><br>Frame 2168 · 0.0s</a></td><td>pan</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2170"><img loading="lazy" src="/thumb?id=2170" alt="Frame 2170"><br>Frame 2170 · 2.0s</a></td><td>none</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2171"><img loading="lazy" src="/thumb?id=2171" alt="Frame 2171"><br>Frame 2171 · 3.0s</a></td><td>none</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2173"><img loading="lazy" src="/thumb?id=2173" alt="Frame 2173"><br>Frame 2173 · 5.0s</a></td><td>none</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2175"><img loading="lazy" src="/thumb?id=2175" alt="Frame 2175"><br>Frame 2175 · 7.0s</a></td><td>none</td><td>none</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>015_empty-plate.mp4 · 8/8 exact class sets</summary><table><tr><th>Frame</th><th>Visible judgment</th><th>Missed</th><th>Unexpected / extra</th></tr>
+<tr><td><a href="/?frame=2176"><img loading="lazy" src="/thumb?id=2176" alt="Frame 2176"><br>Frame 2176 · 0.0s</a></td><td>none</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2178"><img loading="lazy" src="/thumb?id=2178" alt="Frame 2178"><br>Frame 2178 · 2.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2179"><img loading="lazy" src="/thumb?id=2179" alt="Frame 2179"><br>Frame 2179 · 3.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2180"><img loading="lazy" src="/thumb?id=2180" alt="Frame 2180"><br>Frame 2180 · 4.0s</a></td><td>plate</td><td>none</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=2182"><img loading="lazy" src="/thumb?id=2182" alt="Frame 2182"><br>Frame 2182 · 6.0s</a></td><td>plate</td><td>none</td><td>none / 1 extra</td></tr>
+<tr><td><a href="/?frame=2183"><img loading="lazy" src="/thumb?id=2183" alt="Frame 2183"><br>Frame 2183 · 7.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2184"><img loading="lazy" src="/thumb?id=2184" alt="Frame 2184"><br>Frame 2184 · 8.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+<tr><td><a href="/?frame=2186"><img loading="lazy" src="/thumb?id=2186" alt="Frame 2186"><br>Frame 2186 · 10.0s</a></td><td>plate</td><td>none</td><td>none / 0 extra</td></tr>
+</table></details>
+<details><summary>Full methodology, results and limitations</summary><pre># YOLO assistant evaluation — 2026-09-05
+
+**Conclusion: not reliable enough for automatic annotation.** The main errors are missing objects and duplicate boxes.
+
+I visually inspected 143 cooking-area crops from all 15 videos, excluding the 45 training frames. One motion-blurred/ambiguous frame was excluded, leaving 142 scored frames. Four ambiguous class/frame decisions were ignored. Video names supplied context; visible image content determined labels.
+
+References were recorded from original image contact sheets before comparison with cached predictions. Earlier predictions from this session had already been seen, so this is not a fully blinded review.
+
+## Results at confidence 0.25
+
+- Class-presence recall: **79.2%** (187/236); 49 missed class occurrences.
+- Exact visible class set: **100/142 (70.4%)**.
+- Correct class set with no extra same-class boxes: **89/142 (62.7%)**; this still does not check localization.
+- Extra same-class boxes: **18 across 17 frames**.
+- Empty crops: **8/8** correctly produced no predictions.
+- Class-presence precision: **99.5%** (187/188). This forgiving metric counts a class as correct whenever it is present anywhere in the crop; it ignores box location and collapses duplicates. It is NOT 99.5% annotation accuracy.
+
+| Class | Visible frames | Detected | Missed | Presence recall |
+|---|---:|---:|---:|---:|
+| pan | 84 | 75 | 9 | 89.3% |
+| lid | 19 | 19 | 0 | 100.0% |
+| knife | 32 | 20 | 12 | 62.5% |
+| cutting_board | 20 | 10 | 10 | 50.0% |
+| bowl | 7 | 6 | 1 | 85.7% |
+| plate | 49 | 45 | 4 | 91.8% |
+| spatula | 22 | 12 | 10 | 54.5% |
+| spoon | 1 | 0 | 1 | 0.0% |
+| tongs | 2 | 0 | 2 | 0.0% |
+
+Lid and bowl results have small support. Spoon and tongs results have only one and two examples. Pot, wok, cup, bottle, jar and sponge have no confidently scored positives; their recall cannot be estimated.
+
+## Concrete failures
+
+- Frame 143, cutting onion: plate and bowl detected; visible knife and cutting board missed.
+- Frame 1150, adding cut onion: visible pan and spatula both missed.
+- Frame 1420, adding chicken: tongs classified as spatula.
+- Frame 1973, opening lid: visible pan and spoon both missed.
+- Frame 1911, closing lid: duplicate pan and lid boxes.
+
+## Confidence sensitivity
+
+| Confidence | Presence precision | Presence recall | Frames with extra boxes |
+|---:|---:|---:|---:|
+| 0.10 | 96.2% | 86.0% | 56 |
+| 0.25 | 99.5% | 79.2% | 17 |
+| 0.40 | 99.4% | 70.8% | 5 |
+| 0.50 | 100.0% | 64.0% | 3 |
+| 0.70 | 100.0% | 43.2% | 0 |
+
+Lowering confidence to 0.10 raises recall to 86.0%, but extra boxes appear in 56 frames instead of 17. Threshold changes alone do not solve the problem. These thresholds were inspected on the same sample, not independently validated.
+
+## Limits and next step
+
+This measures per-frame object-class presence in the trained crop, not box IoU, detector mAP, mask quality, action recognition or full-frame performance. Frames come from the same session as training and are correlated. Sampling is approximately balanced across videos, not proportional to duration. Assistant judgments are not human-verified ground truth.
+
+Prioritize corrected examples of knives, cutting boards, spatulas, tongs, spoons and food-filled pans; include occlusion and tool motion. Keep a separately recorded session for final evaluation. Do not turn these presence-only judgments directly into box training labels.
+
+Reproducibility: `config/yolo_self_evaluation.v1.json` contains the visual judgments; `outputs/yolo-self-evaluation/sample.json` contains exact image IDs/hashes; `outputs/yolo-self-evaluation/metrics.json` contains all per-frame outcomes. Run `scripts/evaluate_yolo_presence.py` in the training environment to recompute.</pre></details></body></html>
