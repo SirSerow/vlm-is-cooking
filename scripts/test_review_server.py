@@ -47,6 +47,39 @@ class ReviewTests(unittest.TestCase):
         value=copy.deepcopy(self.body);value['boxes'][0]['class_id']=15
         with self.assertRaises(ValueError):app.save_review(value)
 
+    def test_apply_original_scope_masks_backup_and_conflicts(self):
+        import hashlib
+        old_source,old_state=app.SOURCE,app.STATE
+        app.SOURCE=Path(self.temp.name)/'source';app.STATE=Path(self.temp.name)/'state'
+        try:
+            path=app.source_path(0);path.parent.mkdir(parents=True)
+            candidates=[dict(class_id=7,class_name='plate',bbox_xyxy=[490,320,900,800],segmentation={'counts':'original'},score=.8),
+                        dict(class_id=12,class_name='bottle',bbox_xyxy=[50,50,90,90],segmentation={'counts':'outside'},score=.9)]
+            original=json.dumps(dict(image_sha256=app.FRAMES[0]['image_sha256'],width=1920,height=1080,candidates=candidates)).encode()
+            path.write_bytes(original)
+            saved=app.save_review(dict(self.body,boxes=[dict(class_id=0,bbox_xyxy=[500,330,900,800])]))
+            request=dict(frame=0,revision=1,source_hash=hashlib.sha256(original).hexdigest())
+            result=app.apply_original(request)
+            doc=json.loads(path.read_bytes());self.assertEqual(doc['candidates'][0],candidates[1])
+            self.assertEqual(doc['candidates'][1]['class_id'],0)
+            self.assertEqual(doc['candidates'][1]['segmentation'],candidates[0]['segmentation'])
+            self.assertEqual(doc['candidates'][1]['bbox_xyxy'],candidates[0]['bbox_xyxy'])
+            self.assertNotIn('score',doc['candidates'][1])
+            self.assertEqual((Path(result['backup'])/'annotation.json').read_bytes(),original)
+            with self.assertRaises(FileExistsError):app.apply_original(request)
+            saved['boxes']=[dict(class_id=4,bbox_xyxy=[600,400,700,500])]
+            saved=app.save_review(saved)
+            result=app.apply_original(dict(frame=0,revision=2,source_hash=hashlib.sha256(path.read_bytes()).hexdigest()))
+            doc=json.loads(path.read_bytes());self.assertEqual(len(doc['candidates']),2)
+            self.assertIsNone(doc['candidates'][1]['segmentation'])
+            saved['scope']='full';saved['boxes']=[];saved=app.save_review(saved)
+            app.apply_original(dict(frame=0,revision=3,source_hash=hashlib.sha256(path.read_bytes()).hexdigest()))
+            self.assertEqual(json.loads(path.read_bytes())['candidates'],[])
+            saved['status']='draft';app.save_review(saved)
+            with self.assertRaises(ValueError):app.apply_original(dict(frame=0,revision=4,source_hash='anything'))
+        finally:
+            app.SOURCE,app.STATE=old_source,old_state
+
     def test_export_pairs_crop_labels_and_images_and_keeps_negatives(self):
         app.save_review(self.body)
         app.save_review(dict(self.body,frame=1,scope='full',boxes=[]))

@@ -4,6 +4,9 @@ import csv
 import io
 import json
 import math
+import hashlib
+import copy
+import threading
 import mimetypes
 import secrets
 import sqlite3
@@ -22,6 +25,7 @@ RUN = ROOT / 'outputs/local-training/yolo26s-curated-crops-v1'
 MODEL = ROOT / 'models/yolo26s-cooking-crops-v1.pt'
 ROI = [500, 330, 1120, 1080]
 TOKEN = secrets.token_urlsafe(32)
+SOURCE_LOCK = threading.RLock()
 FRAMES = json.loads((SOURCE / 'manifest.json').read_text())
 CLASSES = json.loads((ROOT / 'config/kitchen_classes.v1.json').read_text())['classes']
 TRAIN = {r['image']: r for r in json.loads((ROOT / 'data/curated-crops-v1/provenance.json').read_text())}
@@ -101,6 +105,88 @@ def save_review(body, reviewer='local reviewer'):
 def annotation(index):
     rel = Path(FRAMES[index]['image'])
     return json.loads((SOURCE / 'annotations' / rel.parent.name / (rel.stem + '.json')).read_text())
+
+
+def source_path(index):
+    rel = Path(FRAMES[index]['image'])
+    return SOURCE / 'annotations' / rel.parent.name / (rel.stem + '.json')
+
+
+def apply_original(body):
+    index = body.get('frame')
+    if type(index) is not int or not 0 <= index < len(FRAMES):
+        raise ValueError('Invalid frame')
+    with SOURCE_LOCK, connect() as db:
+        db.execute('BEGIN IMMEDIATE')
+        row = db.execute('SELECT body FROM reviews WHERE frame=?', (index,)).fetchone()
+        review = json.loads(row['body']) if row else None
+        if not review or review['revision'] != body.get('revision'):
+            raise FileExistsError('Save/reload the latest review before replacing labels.')
+        if review['status'] != 'approved':
+            raise ValueError('Save this frame as Approved within scope first.')
+        validate_review(review)
+        path = source_path(index)
+        before = path.read_bytes()
+        if hashlib.sha256(before).hexdigest() != body.get('source_hash'):
+            raise FileExistsError('Original labels changed. Reload and check them before replacing.')
+        doc = json.loads(before)
+        if doc['image_sha256'] != review['image_sha256']:
+            raise ValueError('Source image does not match the saved review.')
+        bounds = ROI if review['scope'] == 'crop' else [0, 0, doc['width'], doc['height']]
+        def clipped(box):
+            x,y,X,Y=box
+            return [max(x,bounds[0]),max(y,bounds[1]),min(X,bounds[2]),min(Y,bounds[3])]
+        def intersects(box):
+            x,y,X,Y=clipped(box)
+            return x<X and y<Y
+        originals = doc['candidates']
+        outside = [copy.deepcopy(b) for b in originals if not intersects(b['bbox_xyxy'])]
+        used=set()
+        corrected=[]
+        for box in review['boxes']:
+            matches=[i for i,b in enumerate(originals) if i not in used and
+                     clipped(b['bbox_xyxy']) == box['bbox_xyxy']]
+            if len(matches)==1:
+                i=matches[0];used.add(i);candidate=copy.deepcopy(originals[i])
+                candidate.setdefault('original_sam3_class', {k:candidate.get(k) for k in ('class_id','class_name','score','prompt')})
+                # Unchanged (possibly clipped) geometry retains the full original mask/box.
+                candidate.pop('score',None)
+            else:
+                candidate={'bbox_xyxy':box['bbox_xyxy'], 'segmentation':None,
+                           'mask_status':'not_available_for_edited_box'}
+            candidate.update(class_id=box['class_id'],class_name=CLASSES[box['class_id']]['name'],
+                             review_status='approved',annotation_source='manual_review')
+            corrected.append(candidate)
+        doc['candidates']=outside+corrected
+        stamp=datetime.now(timezone.utc).isoformat()
+        doc['last_applied_review']={'revision':review['revision'],'scope':review['scope'],
+                                    'applied_at':stamp,'reviewer':review['reviewer']}
+        # A crop approval is not an approval of untouched full-frame labels.
+        doc['review_status']='approved' if review['scope']=='full' else 'partially_reviewed'
+        label_path=SOURCE/'candidate_labels'/path.parent.name/(path.stem+'.txt')
+        old_labels=label_path.read_bytes() if label_path.exists() else None
+        backup=STATE/'source-backups'/f'{index:05d}-{secrets.token_hex(8)}'
+        backup.mkdir(parents=True)
+        (backup/'annotation.json').write_bytes(before)
+        if old_labels is not None:(backup/'candidate-labels.txt').write_bytes(old_labels)
+        (backup/'change.json').write_text(json.dumps({'annotation':str(path),'labels':str(label_path),
+             'frame':index,'review':review,'applied_at':stamp},indent=2),encoding='utf-8')
+        lines=[]
+        for b in doc['candidates']:
+            x,y,X,Y=b['bbox_xyxy'];w,h=doc['width'],doc['height']
+            lines.append(f"{b['class_id']} {(x+X)/2/w:.8f} {(y+Y)/2/h:.8f} {(X-x)/w:.8f} {(Y-y)/h:.8f}")
+        def atomic(p,payload):
+            tmp=p.with_suffix(p.suffix+'.tmp');tmp.write_bytes(payload);tmp.replace(p)
+        try:
+            atomic(path,json.dumps(doc).encode())
+            label_path.parent.mkdir(parents=True,exist_ok=True)
+            atomic(label_path,('\n'.join(lines)+ ('\n' if lines else '')).encode())
+        except OSError:
+            atomic(path,before)
+            if old_labels is not None:atomic(label_path,old_labels)
+            raise
+        return {'applied':True,'backup':str(backup),'frame':index,'scope':review['scope'],
+                'corrected':len(corrected),'preserved_outside':len(outside)}
 
 
 def prediction(index):
@@ -193,7 +279,9 @@ class Handler(BaseHTTPRequestHandler):
                 if not 0 <= index < len(FRAMES):
                     raise ValueError('Invalid frame')
                 if url.path == '/api/frame':
-                    return self.reply({'source': FRAMES[index], 'sam': annotation(index)['candidates'],
+                    with SOURCE_LOCK:
+                        raw = source_path(index).read_bytes()
+                    return self.reply({'source_hash':hashlib.sha256(raw).hexdigest(), 'source': FRAMES[index], 'sam': json.loads(raw)['candidates'],
                                        'yolo': prediction(index), 'training': TRAIN.get(FRAMES[index]['image']), 'review': get_review(index)})
                 path = SOURCE / FRAMES[index]['image']
                 if url.path == '/thumb':
@@ -222,7 +310,7 @@ class Handler(BaseHTTPRequestHandler):
             self.reply({'error': 'Server error; see server log'}, status=500)
 
     def do_POST(self):
-        if self.path != '/api/review':
+        if self.path not in ('/api/review', '/api/apply-original'):
             return self.reply({'error': 'Not found'}, status=404)
         if self.headers.get('X-Review-Token') != TOKEN:
             return self.reply({'error': 'Reload this page before saving'}, status=403)
@@ -234,7 +322,7 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < length <= 256000:
                 raise ValueError('Invalid request size')
             body = json.loads(self.rfile.read(length))
-            result = save_review(body, self.headers.get('Tailscale-User-Login', 'local reviewer'))
+            result = apply_original(body) if self.path == '/api/apply-original' else save_review(body, self.headers.get('Tailscale-User-Login', 'local reviewer'))
             self.reply(result)
         except FileExistsError as e:
             self.reply({'error': str(e)}, status=409)

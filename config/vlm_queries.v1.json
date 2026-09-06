@@ -1,0 +1,6 @@
+{
+  "queries": [
+    {"id": "mushroom.state", "entity": "mushroom", "ask": "state", "allowed": ["whole", "sliced", "minced", "not_visible", "unknown"]},
+    {"id": "mushroom.location", "entity": "mushroom", "ask": "location", "allowed": ["plate", "cutting_board", "pan", "bowl", "not_visible", "unknown"]}
+  ]
+}

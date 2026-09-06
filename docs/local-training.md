@@ -1,5 +1,8 @@
 # Local YOLO26s crop baseline
 
+For step-by-step commands to prepare approved labels and train your own run, see
+[Train it yourself](train-guide.md). This document describes the original baseline.
+
 The initial full-frame SAM3 candidates are not reliable enough for direct
 supervised training. Visual review found hob-as-plate false positives, pan/bowl/
 plate confusion, duplicate bottle/jar labels, missing silicone lids, missing thin
