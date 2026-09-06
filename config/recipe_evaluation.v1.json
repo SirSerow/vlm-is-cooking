@@ -1,0 +1,14 @@
+{
+  "recipe": "recipes/creamy-chicken-mushrooms.json",
+  "crop": [500, 330, 1120, 1080],
+  "description": "Seven supervised transition cases from the training session. Two pre-action frames and three post-action frames per case. Labels are reviewed before inference. Frame and clip names are never included in model requests.",
+  "cases": [
+    {"step": "add_mushrooms", "before": {"clip": "006_heating-oil.mp4", "seconds": [100, 105]}, "after": {"clip": "007_roasting-mushrooms.mp4", "seconds": [30, 33, 36]}},
+    {"step": "add_onion", "before": {"clip": "007_roasting-mushrooms.mp4", "seconds": [401, 406]}, "after": {"clip": "008_adding-cut-onion.mp4", "seconds": [30, 33, 36]}},
+    {"step": "add_chicken", "before": {"clip": "008_adding-cut-onion.mp4", "seconds": [305, 310]}, "after": {"clip": "009_adding-chicken.mp4", "seconds": [40, 43, 46]}},
+    {"step": "add_cream", "before": {"clip": "009_adding-chicken.mp4", "seconds": [382, 387]}, "after": {"clip": "010_adding-cream.mp4", "seconds": [120, 123, 126]}},
+    {"step": "cover_pan", "before": {"clip": "010_adding-cream.mp4", "seconds": [216, 221]}, "after": {"clip": "011_closing-lid.mp4", "seconds": [10, 13, 16]}},
+    {"step": "uncover_pan", "before": {"clip": "011_closing-lid.mp4", "seconds": [124, 129]}, "after": {"clip": "012_opening-lid.mp4", "seconds": [20, 23, 26]}},
+    {"step": "cover_again", "before": {"clip": "012_opening-lid.mp4", "seconds": [210, 215]}, "after": {"clip": "013_closing-lid.mp4", "seconds": [5, 8, 11]}}
+  ]
+}

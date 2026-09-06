@@ -1,0 +1,1 @@
+"""Local kitchen assistant application."""

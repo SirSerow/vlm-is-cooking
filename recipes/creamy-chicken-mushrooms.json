@@ -1,0 +1,57 @@
+{
+  "title": "Creamy chicken with mushrooms and onion (inferred from training video)",
+  "source": "original_uncut.mp4, 00:00–36:18; verified using the rotated episode clips",
+  "ingredients": ["mushrooms", "onion", "chicken", "oil", "cream or a similar pale dairy liquid"],
+  "limitations": [
+    "Quantities, exact dairy product, heat settings and seasoning amounts are not established.",
+    "The recording ends with the pan covered, without a serving or doneness check.",
+    "One relevant pan and one portion of each ingredient are assumed."
+  ],
+  "steps": [
+    {"id": "slice_mushrooms", "instruction": "Finish slicing the mushrooms and collect them on the plate.", "verification": "user_confirmation"},
+    {"id": "chop_onion", "instruction": "Chop the onion and set it aside in a bowl.", "verification": "user_confirmation"},
+    {"id": "cut_chicken", "instruction": "Finish cutting the chicken into pieces.", "verification": "user_confirmation"},
+    {"id": "heat_oil", "instruction": "Add oil to the pan and heat it; confirm when ready to cook.", "verification": "user_confirmation"},
+    {
+      "id": "add_mushrooms", "instruction": "Add the sliced mushrooms to the pan.", "verification": "vision",
+      "expected_after": {"mushroom.location": "pan"},
+      "queries": [{"id": "mushroom.location", "entity": "mushroom", "ask": "location", "allowed": ["plate", "cutting_board", "pan", "bowl", "not_visible", "unknown"]}]
+    },
+    {"id": "saute_mushrooms", "instruction": "Cook and stir the mushrooms; confirm when ready to add the onion.", "verification": "user_confirmation"},
+    {
+      "id": "add_onion", "instruction": "Add the chopped onion to the mushrooms.", "verification": "vision",
+      "expected_after": {"onion.location": "pan"},
+      "queries": [{"id": "onion.location", "entity": "onion", "ask": "location", "allowed": ["plate", "cutting_board", "pan", "bowl", "not_visible", "unknown"]}]
+    },
+    {"id": "soften_onion", "instruction": "Stir and cook the onion with the mushrooms; confirm when ready for the chicken.", "verification": "user_confirmation"},
+    {
+      "id": "add_chicken", "instruction": "Add the chicken pieces to the pan.", "verification": "vision",
+      "expected_after": {"chicken.location": "pan"},
+      "queries": [{"id": "chicken.location", "entity": "chicken", "ask": "location", "allowed": ["plate", "cutting_board", "pan", "bowl", "not_visible", "unknown"]}]
+    },
+    {"id": "cook_chicken", "instruction": "Cook and turn the chicken with the vegetables. Confirm before adding cream; surface appearance does not establish doneness.", "verification": "user_confirmation"},
+    {
+      "id": "add_cream", "instruction": "Add the cream and stir it into the pan contents.", "verification": "vision",
+      "expected_after": {"cream.location": "pan"},
+      "queries": [{"id": "cream.location", "entity": "cream", "ask": "location", "allowed": ["pan", "not_visible", "unknown"]}]
+    },
+    {
+      "id": "cover_pan", "instruction": "Cover the pan with its lid.", "verification": "vision",
+      "expected_after": {"lid.position": "covering_pan"},
+      "queries": [{"id": "lid.position", "entity": "lid", "ask": "position", "allowed": ["covering_pan", "off_pan", "unknown"]}]
+    },
+    {"id": "simmer", "instruction": "Continue cooking under the lid; confirm when you want to open it and stir.", "verification": "user_confirmation"},
+    {
+      "id": "uncover_pan", "instruction": "Remove the lid to check and stir the contents.", "verification": "vision",
+      "expected_after": {"lid.position": "off_pan"},
+      "queries": [{"id": "lid.position", "entity": "lid", "ask": "position", "allowed": ["covering_pan", "off_pan", "unknown"]}]
+    },
+    {"id": "stir_sauce", "instruction": "Stir the chicken, mushrooms and sauce; confirm before covering again.", "verification": "user_confirmation"},
+    {
+      "id": "cover_again", "instruction": "Cover the pan again to continue cooking.", "verification": "vision",
+      "expected_after": {"lid.position": "covering_pan"},
+      "queries": [{"id": "lid.position", "entity": "lid", "ask": "position", "allowed": ["covering_pan", "off_pan", "unknown"]}]
+    },
+    {"id": "check_doneness", "instruction": "Check chicken doneness with a food thermometer before serving. The recording does not show this final check.", "verification": "user_confirmation"}
+  ]
+}
