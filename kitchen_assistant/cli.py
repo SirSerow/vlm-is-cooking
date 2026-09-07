@@ -17,7 +17,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("image", type=Path)
     parser.add_argument("--queries", type=Path, required=True)
-    parser.add_argument("--model", default="qwen3-vl:2b-instruct")
+    parser.add_argument("--model", default="qwen3-vl:4b-instruct-q4_K_M")
     parser.add_argument("--url", default="http://127.0.0.1:11434")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
