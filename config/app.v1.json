@@ -1,0 +1,30 @@
+{
+  "recipe": "recipes/two-path-demo.json",
+  "strategy": "vlm",
+  "source": {
+    "type": "video",
+    "input": "datasets/video/example.mp4",
+    "analysis_fps": 1.0
+  },
+  "vlm": {
+    "model": "qwen3-vl:4b-instruct-q4_K_M",
+    "url": "http://127.0.0.1:11434"
+  },
+  "yolo": {
+    "model": "models/yolo26s-cooking-crops-v1.engine",
+    "device": 0,
+    "confidence": 0.25,
+    "roi": [500, 330, 1120, 1080]
+  },
+  "workflow": {
+    "completion_confidence": 0.7,
+    "required_matches": 2,
+    "history_size": 3
+  },
+  "output": {
+    "mode": "both",
+    "host": "127.0.0.1",
+    "port": 8080
+  }
+}
+

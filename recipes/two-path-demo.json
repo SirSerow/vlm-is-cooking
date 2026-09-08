@@ -1,0 +1,81 @@
+{
+  "title": "Creamy chicken — two-path visual workflow",
+  "limitations": [
+    "This recipe is structured for the VLM-versus-YOLO experiment, not as a complete food-safety guide.",
+    "The YOLO path assumes each next step introduces at least one newly visible entity.",
+    "Ingredients listed here must exist in the detector vocabulary before the YOLO path is evaluated."
+  ],
+  "steps": [
+    {
+      "id": "prepare_mushrooms",
+      "name": "Prepare the mushrooms",
+      "description": "Slice the mushrooms and collect them on the plate.",
+      "required_objects": ["knife", "cutting_board", "plate"],
+      "required_ingredients": ["mushroom"]
+    },
+    {
+      "id": "prepare_onion",
+      "name": "Prepare the onion",
+      "description": "Chop the onion and collect it in the bowl.",
+      "required_objects": ["knife", "cutting_board", "bowl"],
+      "required_ingredients": ["onion"]
+    },
+    {
+      "id": "prepare_chicken",
+      "name": "Prepare the chicken",
+      "description": "Cut the chicken into pieces on the cutting board.",
+      "required_objects": ["knife", "cutting_board", "plate"],
+      "required_ingredients": ["chicken"]
+    },
+    {
+      "id": "heat_oil",
+      "name": "Heat the oil",
+      "description": "Add oil to the pan and heat it until ready for the mushrooms.",
+      "required_objects": ["pan"],
+      "required_ingredients": ["oil"]
+    },
+    {
+      "id": "cook_mushrooms",
+      "name": "Cook the mushrooms",
+      "description": "Add the mushrooms to the pan and stir them with the spatula.",
+      "required_objects": ["pan", "spatula"],
+      "required_ingredients": ["mushroom"]
+    },
+    {
+      "id": "add_onion",
+      "name": "Add the onion",
+      "description": "Add the chopped onion and stir it with the mushrooms.",
+      "required_objects": ["pan", "spatula"],
+      "required_ingredients": ["mushroom", "onion"]
+    },
+    {
+      "id": "add_chicken",
+      "name": "Add the chicken",
+      "description": "Add the chicken pieces and turn them with the tongs.",
+      "required_objects": ["pan", "tongs"],
+      "required_ingredients": ["mushroom", "onion", "chicken"]
+    },
+    {
+      "id": "add_cream",
+      "name": "Add the cream",
+      "description": "Add the cream and stir it into the pan contents.",
+      "required_objects": ["pan", "spatula"],
+      "required_ingredients": ["mushroom", "onion", "chicken", "cream"]
+    },
+    {
+      "id": "cover_pan",
+      "name": "Cover the pan",
+      "description": "Place the lid on the pan and continue cooking.",
+      "required_objects": ["pan", "lid"],
+      "required_ingredients": ["mushroom", "onion", "chicken", "cream"]
+    },
+    {
+      "id": "serve",
+      "name": "Serve the dish",
+      "description": "Move the finished dish to the serving plate.",
+      "required_objects": ["plate", "spoon"],
+      "required_ingredients": ["finished_dish"]
+    }
+  ]
+}
+

@@ -1,92 +1,72 @@
 # Kitchen assistant
 
-A local kitchen assistant built around structured observations. The initial app
-analyzes a still image with Ollama and merges the answers into timestamped kitchen
-state. It uses Python 3.12+ and the standard library.
+A local experiment comparing two ways to control a visual cooking workflow:
+
+1. A VLM directly assesses whether the current recipe step is complete.
+2. A trained YOLO detector uses newly appearing next-step requirements as a
+   deterministic presence-based completion baseline.
+
+Both paths share the same recipe schema, input readers, temporal state machine,
+console/web outputs, and evaluation surface. They are intentionally not fused.
+
+## Runtime architecture
+
+The application loads a recipe JSON, opens a camera, web stream, or local video,
+and starts each step in `waiting_for_requirements`. Once all required objects and
+ingredients are visible in two recent frames, the instruction becomes active.
+Two stable completion assessments advance the workflow automatically.
+
+The next-step condition must not already be true throughout activation. This
+transition guard prevents pre-staged objects from skipping the current step.
+The YOLO recipe validator also rejects adjacent steps without a newly appearing
+entity. See [the runtime design and commands](docs/two-path-runtime.md).
 
 ## Run
 
-Start the existing Ollama environment as described in
-[the VLM setup guide](environments/vlm/README.md), then run from this directory:
+VLM path:
 
 ```powershell
-./.venv-vlm/Scripts/python.exe -m kitchen_assistant outputs/local-model-check/002_cutting-mushrooms-input.jpg --queries config/vlm_queries.v1.json --output outputs/app/observation.json
+python -m pip install -e ".[input]"
+kitchen-cook recipes/two-path-demo.json --strategy vlm --source video `
+  --input datasets/video/example.mp4 --analysis-fps 1 --output both
 ```
 
-Pass `--model` or `--url` to select another model or Ollama server. The image can
-be any local JPEG or PNG. Each invocation observes once, prints JSON, and exits.
-Optionally install with `python -m pip install -e .` to use the
-`kitchen-assistant` command from another directory.
+YOLO path:
+
+```powershell
+python -m pip install -e ".[yolo]"
+kitchen-cook recipes/two-path-demo.json --strategy yolo --source camera `
+  --input 0 --model models/yolo26s-cooking-crops-v1.engine `
+  --roi 500,330,1120,1080 --analysis-fps 2 --output both
+```
+
+The web page is available at `http://127.0.0.1:8080` when web output is enabled.
 
 ## Code layout
 
 | Module | Responsibility |
 | --- | --- |
-| `kitchen_assistant/cli.py` | Arguments, image input, JSON output |
-| `kitchen_assistant/queries.py` | Typed queries and query-file loading |
-| `kitchen_assistant/observer.py` | Ollama requests and response validation |
-| `kitchen_assistant/state.py` | Frames, observations, field evidence and freshness |
-| `kitchen_assistant/assistant.py` | Coordinate an observation and state update |
-| `kitchen_assistant/recipe.py` | Supervised recipe steps and next-step recommendations |
-| `kitchen_assistant/cook.py` | Interactive image observations and step confirmations |
+| `recipe.py` | Recipe schema and legacy supervised benchmark session |
+| `workflow.py` | Readiness, completion voting, and automatic advancement |
+| `completion.py` | Shared strategy interface and VLM/YOLO strategies |
+| `sources.py` | Camera, web-stream, video, and latest-frame scheduling |
+| `yolo.py` | Ultralytics/TensorRT detector adapter |
+| `outputs.py` | Console and lightweight local web output |
+| `runtime.py` | Strategy-independent application controller |
+| `runtime_cli.py` | Runtime command-line entry point |
 
-The observer answers questions; it never decides whether a recipe step is done.
-State retains the frame ID, capture time, source and confidence for each field.
-Unknown answers replace previous values; older observations cannot overwrite
-newer evidence. Consumers can use `KitchenState.value` with an explicit freshness
-window. Model confidence is uncalibrated.
-
-The `Observer` protocol is the small seam for alternate model backends or test
-doubles. Live camera/video input, YOLO fusion, periodic scheduling, recipe
-compilation and automatic progression are not implemented yet. The first recipe
-demo will use one relevant instance of each entity, as specified in the
-[plan review](docs/plan-review.md).
-
-Existing `scripts/` and `review-app/` remain the training, evaluation and annotation
-tools. The app does not import those experiments or require their GPU libraries.
-
-## Follow the video recipe
-
-The [inferred recipe](recipes/creamy-chicken-mushrooms.json) follows the training
-video's chicken, mushroom, onion and cream sequence. It is a reconstruction of
-the visible workflow; amounts and cooking temperatures are not established.
-
-```powershell
-./.venv-vlm/Scripts/python.exe -m kitchen_assistant.cook recipes/creamy-chicken-mushrooms.json
-```
-
-Enter an image path to observe the current visual step, `confirm` to finish the
-current step, or `quit`. Two matching fresh images let the app suggest the next
-step. Confirmation is always explicit; the model cannot advance the recipe.
-Use different recent images within 30 seconds. Missing or uncertain evidence
-asks for confirmation. Preparation, heating and doneness use manual steps.
-
-## Evaluate recommendations on the training video
-
-See [the evaluation report](docs/recipe-evaluation.md) for the measured results
-and known failures. This is a supervised same-session benchmark, with the current
-step supplied to the app. It does not measure autonomous recognition of recipe
-position or generalization to unseen cooking sessions.
-
-Sample the source clips with the existing OpenCV/Pillow training environment:
-
-```powershell
-./.venv-training/Scripts/python.exe -m scripts.evaluate_recipe --video-root S:/Projects/cooking-detection-project/datasets/video --sample-only
-```
-
-Inspect the `review-*.jpg` sheets under `outputs/recipe-evaluation/benchmark`, then
-run the existing local Ollama model against the frozen samples:
-
-```powershell
-./.venv-vlm/Scripts/python.exe -m scripts.evaluate_recipe --video-root S:/Projects/cooking-detection-project/datasets/video --reuse-samples
-```
-
-The tool records answers, recommendations, image hashes, per-frame errors and
-latency in `results.json`. Invalid model outputs count as failures. Use `--output`
-to preserve a separate run. No model training or model downloads are performed.
+The earlier closed-query observer and supervised recipe evaluation remain
+available as a frozen baseline. Training, annotation, and TensorRT benchmark
+scripts remain separate from the runtime package.
 
 ## Tests
 
 ```powershell
-./.venv-vlm/Scripts/python.exe -m unittest discover -s tests -v
+python -m unittest discover -s tests -v
 ```
+
+No model download or inference is performed by the unit tests.
+
+Use `--event-log PATH` during video runs and `python -m
+scripts.evaluate_transitions` to compare transition timing against reviewed
+windows. The complete procedure is in the runtime design document.
