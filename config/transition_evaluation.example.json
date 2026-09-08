@@ -1,0 +1,19 @@
+{
+  "video": "datasets/video/example.mp4",
+  "description": "Replace these example windows with human-reviewed source-video timestamps.",
+  "transitions": [
+    {
+      "step_id": "prepare_mushrooms",
+      "earliest_seconds": 35.0,
+      "target_seconds": 40.0,
+      "latest_seconds": 45.0
+    },
+    {
+      "step_id": "prepare_onion",
+      "earliest_seconds": 105.0,
+      "target_seconds": 110.0,
+      "latest_seconds": 115.0
+    }
+  ]
+}
+

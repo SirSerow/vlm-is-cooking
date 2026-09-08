@@ -4,13 +4,20 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kitchen-assistant"
-version = "0.1.0"
-description = "Local kitchen observations from recipe queries"
+version = "0.2.0"
+description = "Local VLM and YOLO cooking-step experiments"
 requires-python = ">=3.12"
 dependencies = []
 
+[project.optional-dependencies]
+input = ["opencv-python>=4.10"]
+yolo = ["opencv-python>=4.10", "ultralytics>=8.4"]
+dev = ["opencv-python>=4.10"]
+
 [project.scripts]
 kitchen-assistant = "kitchen_assistant.cli:main"
+kitchen-cook = "kitchen_assistant.runtime_cli:main"
 
 [tool.setuptools.packages.find]
 include = ["kitchen_assistant*"]
+
