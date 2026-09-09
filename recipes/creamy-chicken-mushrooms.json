@@ -2,6 +2,7 @@
   "title": "Creamy chicken with mushrooms and onion (inferred from training video)",
   "source": "original_uncut.mp4, 00:00–36:18; verified using the rotated episode clips",
   "ingredients": ["mushrooms", "onion", "chicken", "oil", "cream or a similar pale dairy liquid"],
+  "utensils": ["pan", "lid", "spatula", "knife", "cutting_board", "plate", "bowl"],
   "limitations": [
     "Quantities, exact dairy product, heat settings and seasoning amounts are not established.",
     "The recording ends with the pan covered, without a serving or doneness check.",

@@ -1,4 +1,5 @@
 """Build the explicitly reviewed crop set; never alter the raw SAM3 annotations."""
+import argparse
 import hashlib
 import json
 from collections import Counter
@@ -8,9 +9,34 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--exclude-episodes",
+        nargs="*",
+        type=int,
+        default=[],
+        metavar="N",
+        help="episode numbers to omit (for example: 8 9 10 11 12)",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=ROOT / "data/curated-crops-v1",
+        help="output dataset directory (default: data/curated-crops-v1)",
+    )
+    return parser.parse_args()
+
+
+def episode_number(source_video):
+    return int(Path(source_video).stem.split("_", 1)[0])
+
+
 def main():
+    args = parse_args()
     source = ROOT / "outputs/all-videos-1fps"
-    out = ROOT / "data/curated-crops-v1"
+    out = args.output.resolve()
+    excluded = set(args.exclude_episodes)
     review = json.loads((ROOT / "config/curated_crop_review.v1.json").read_text())
     manifest = json.loads((source / "manifest.json").read_text())
     selected = []
@@ -18,18 +44,23 @@ def main():
         frames = [f for f in manifest if f["source_video"] == video]
         selected.extend(frames[min(len(frames)-1, int(len(frames)*q))] for q in (0.15,0.5,0.85))
     assert len(selected) == len(review["labels_by_selected_index"]) == 45
+    selected = [
+        (original_index, item)
+        for original_index, item in enumerate(selected)
+        if episode_number(item["source_video"]) not in excluded
+    ]
     names = [c["name"] for c in json.loads((ROOT / "config/kitchen_classes.v1.json").read_text())["classes"]]
     counts = Counter({name: 0 for name in names})
     for folder in ("images", "labels", "review"):
         (out / folder).mkdir(parents=True, exist_ok=True)
     records = []
-    for i, item in enumerate(selected):
+    for output_index, (review_index, item) in enumerate(selected):
         path = source / item["image"]
         assert hashlib.sha256(path.read_bytes()).hexdigest() == item["image_sha256"]
         im = Image.open(path).convert("RGB").crop(review["crop_xyxy"])
-        name = f"{i:02d}_{Path(item['source_video']).stem}_{Path(item['image']).stem}"
+        name = f"{output_index:02d}_{Path(item['source_video']).stem}_{Path(item['image']).stem}"
         im.save(out / "images" / f"{name}.jpg", quality=95)
-        labels = review["labels_by_selected_index"][str(i)]
+        labels = review["labels_by_selected_index"][str(review_index)]
         lines = []
         preview = im.copy()
         draw = ImageDraw.Draw(preview)
@@ -47,14 +78,15 @@ def main():
     yaml += "".join(f"  {i}: {name}\n" for i,name in enumerate(names))
     (out / "dataset.yaml").write_text(yaml)
     (out / "provenance.json").write_text(json.dumps(records,indent=2))
-    summary = {"images":45,"boxes":sum(counts.values()),"class_counts":dict(counts),
+    summary = {"images":len(records),"boxes":sum(counts.values()),"class_counts":dict(counts),
                "negative_images":sum(not r["labels"] for r in records),
+               "excluded_episodes":sorted(excluded),
                "evaluation":"training-fit diagnostics only; no independent validation/test session",
                "scope":"visually corrected cooking-area crop baseline; remaining full-frame labels unreviewed"}
     (out / "summary.json").write_text(json.dumps(summary,indent=2))
-    for page in range(15):
+    for page in range((len(records) + 2) // 3):
         canvas = Image.new("RGB",(1860,780),"white")
-        for j in range(3):
+        for j in range(min(3, len(records) - page * 3)):
             i=page*3+j
             canvas.paste(Image.open(out / "review" / (records[i]["output"]+".jpg")),(j*620,30))
             ImageDraw.Draw(canvas).text((j*620+4,3), str(i),fill="black",font_size=20)
