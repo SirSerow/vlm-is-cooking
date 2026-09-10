@@ -21,6 +21,26 @@ transition guard prevents pre-staged objects from skipping the current step.
 The YOLO recipe validator also rejects adjacent steps without a newly appearing
 entity. See [the runtime design and commands](docs/two-path-runtime.md).
 
+## Architecture diagrams
+
+### Combined runtime
+
+[![Combined VLM and YOLO runtime architecture](docs/diagrams/01-system-architecture-copy.svg)](docs/diagrams/01-system-architecture-copy.svg)
+
+[PlantUML source](docs/diagrams/01-system-architecture-copy.puml)
+
+### VLM path
+
+[![Top-level VLM architecture](docs/diagrams/vlm-toplevel.svg)](docs/diagrams/vlm-toplevel.svg)
+
+[PlantUML source](docs/diagrams/vlm-toplevel.puml)
+
+### YOLO path
+
+[![Top-level YOLO architecture](docs/diagrams/yolo-toplevel.svg)](docs/diagrams/yolo-toplevel.svg)
+
+[PlantUML source](docs/diagrams/yolo-toplevel.puml)
+
 ## Run
 
 VLM path:

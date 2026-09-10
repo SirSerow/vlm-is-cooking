@@ -1,0 +1,41 @@
+@startuml
+
+
+title Top-level architecture
+caption The perception paths are selected per run and evaluated independently; for now they are not fused.
+
+top to bottom direction
+skinparam linetype polyline
+
+rectangle "Frame source\n(camera | stream | video)" as source
+artifact "Recipe JSON\nordered steps + requirements" as recipe
+rectangle "FrameScheduler\nnewest frame at fixed cadence" as scheduler
+
+package "CookingApplication — shared orchestration boundary" {
+  package "Select exactly one completion path" {
+    rectangle "<b>VLM completion path</b>\nVlmCompletionStrategy → Ollama local VLM\ncurrent step + image; next step withheld" as vlm #EEF6FF
+    rectangle "<b>YOLO completion path</b>\nYoloPresenceStrategy → Ultralytics / TensorRT\ncurrent / next-step entity requirements" as yolo #F0FDF4
+  }
+  rectangle "StrategyResult\ndetections + assessment" as result
+  rectangle "WorkflowSession\nreadiness + temporal voting" as workflow
+}
+
+rectangle "Cook-facing outputs\nconsole + local web UI" as output
+artifact "Timestamped\ntransition log" as log
+
+source -down-> scheduler : JPEG frames
+scheduler -down-> vlm : frame
+scheduler -down-> yolo : frame
+recipe -down-> vlm : current Step
+recipe -down-> yolo : current + next Step
+recipe -down-> workflow : Recipe
+vlm -down-> result
+yolo -down-> result
+result -down-> workflow : presence + completion evidence
+workflow -down-> output : WorkflowView
+workflow -down-> log : activated / completed events
+
+vlm -[hidden]right- yolo
+output -[hidden]right- log
+
+@enduml

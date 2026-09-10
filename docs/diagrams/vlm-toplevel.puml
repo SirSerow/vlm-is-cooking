@@ -1,0 +1,46 @@
+@startuml
+
+title <b>Top-Level Architecture — VLM</b>
+
+top to bottom direction
+skinparam linetype ortho
+skinparam shadowing false
+skinparam roundcorner 14
+skinparam defaultFontName Arial
+skinparam defaultFontSize 13
+skinparam ArrowColor #607080
+skinparam ArrowThickness 1.3
+skinparam dpi 300
+
+skinparam rectangle {
+    BorderColor #607080
+    BackgroundColor #F7F9FC
+    FontColor #263238
+}
+
+skinparam artifact {
+    BorderColor #8A6D3B
+    BackgroundColor #FFF8E7
+    FontColor #4A3A1F
+}
+
+rectangle "<b>Frame Source</b>\nCamera / Video" as source #F3F6F9
+
+artifact "<b>Recipe JSON</b>\nCurrent recipe state" as recipe
+
+rectangle "<b>Local VLM</b>\nOllama\nqwen3-vl:4b-instruct-q4_K_M" as vlm #EAF4FF
+
+rectangle "<b>Recipe Step</b>\n<b>Readiness Assessment</b>" as workflow #F1F5F9
+
+rectangle "<b>User Instruction</b>\n<b>Update</b>" as update #FFF6BF
+
+source -down-> vlm : <color:#607080>frame </color>
+
+recipe -down-> vlm : <color:#607080>current step </color>
+recipe -down-> workflow : <color:#607080> recipe context </color>
+
+vlm -down-> workflow : <color:#607080>structured text </color>
+
+workflow -down-> update : <color:#607080> next instruction </color>
+
+@enduml
